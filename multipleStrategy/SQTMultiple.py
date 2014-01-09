@@ -1,17 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-#baseMultiple.py
-import sys
-sys.path.append("..")
-import baseStrategy
+#SQTMultiple.py
+import baseMultiple
 
-class CBaseMultiple(baseStrategy.CBaseStrategy):
+class CSQTMultiple(baseMultiple.CBaseMultiple):
 	#------------------------------
 	#继承重载函数
 	#------------------------------
 	#自定义初始化函数
 	def customInit(self):
-		self.name = "baseMultiple"
+		self.name = "SQTMultiple"
 	#行情数据触发函数
 	def onRtnMarketData(self, data):
 		print self.name, "onRtnMarketData", len(data)

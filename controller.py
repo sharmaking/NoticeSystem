@@ -23,9 +23,11 @@ g_subStocks = []
 #单只股票策略对象池
 g_SSDict = {}
 g_SSDict["baseSingal"] = signalStrategy.CBaseSingal()
+g_SSDict["SQTSignal"] = signalStrategy.CSQTSignal()
 #多只股票策略对象池
 g_MSDict = {}
 g_MSDict["baseMultiple"] = multipleStrategy.CBaseMultiple()
+g_MSDict["SQTMultiple"] = multipleStrategy.CSQTMultiple()
 #-----------------------
 #实现函数
 #-----------------------
