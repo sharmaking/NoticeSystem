@@ -12,7 +12,7 @@ class CSQTMultiple(baseMultiple.CBaseMultiple):
 		self.name = "SQTMultiple"
 	#行情数据触发函数
 	def onRtnMarketData(self, data):
-		print self.name, "onRtnMarketData", len(data)
+		pass
 	def dayBegin(self):
 		pass
 	def dayEnd(self):
