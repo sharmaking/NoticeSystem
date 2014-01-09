@@ -25,7 +25,6 @@ class CSQTSignal(baseSignal.CBaseSingal):
 		pass
 	#自动保存缓存触发函数
 	def autosaveCache(self):
-		print self.timeSharingDataList
 		#self.saveCache(data = self.data)
 		self.saveCache(
 			timeSharingDataList = self.timeSharingDataList

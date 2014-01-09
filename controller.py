@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 #controller.py
 import copy
+import time
 import datetime
+import thread
+#自定义类
 import dataServerApi
 import dataListener
 #载入策略
@@ -87,7 +90,33 @@ def creatListener(bufferStack):
 		newListener.getmultipleStrategyObj(strategyObjDict, g_listenerDict)
 		newListener.start()
 		g_listenerDict["Multiple"]	= newListener
-
+#更新订阅合约
+def updateSubStock(socketLink, num):
+	global g_subStocks
+	nowTime = datetime.datetime.now()
+	mainIF = "IF"
+	nowTime = datetime.datetime.now()
+	firstDayInThisMonth = nowTime.replace(day = 1)
+	if nowTime.isocalendar()[1] - firstDayInThisMonth.isocalendar()[1] < 2 and nowTime.isocalendar()[2] < 5:
+		mainIF = mainIF + nowTime.strftime("%y%m")
+	else:
+		mainIF = mainIF + nowTime.replace(month = (nowTime.month+1)).strftime("%y%m")
+	g_subStocks.append(mainIF)
+	socketLink.getMainIF(mainIF)
+	while 1:
+		nowTime = datetime.datetime.now()
+		if nowTime.time() > datetime.time(9,14,0) and nowTime.time() < datetime.time(9,15,0):
+			if "IF0000" in g_subStocks:
+				mainIF = "IF"
+				nowTime = datetime.datetime.now()
+				firstDayInThisMonth = nowTime.replace(day = 1)
+				if nowTime.isocalendar()[1] - firstDayInThisMonth.isocalendar()[1] < 2 and nowTime.isocalendar()[2] < 5:
+					mainIF = mainIF + nowTime.strftime("%y%m")
+				else:
+					mainIF = mainIF + nowTime.replace(month = (nowTime.month+1)).strftime("%y%m")
+				g_subStocks.append(mainIF)
+				socketLink.getMainIF(mainIF)
+			time.sleep(60)
 #主入口
 def main():
 	#注册策略
@@ -95,8 +124,11 @@ def main():
 	loadSubStocks()
 	#创建数据连接对象
 	dataServerInstance = creatDataServerLink()
+	#注意监听更新订阅股票代码
+	thread.start_new_thread(updateSubStock, (dataServerInstance,1))
 	#创建数据监听器
 	creatListener(dataServerInstance.bufferStack)
+	print g_listenerDict
 	#订阅股票代码
 	dataServerInstance.subscibeStock(SUB_ALL_STOCK, g_subStocks)
 	#请求数据
