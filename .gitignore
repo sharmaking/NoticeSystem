@@ -10,8 +10,6 @@ tmp/
 *.tmp
 *.bak
 *.swp
-*.cache
-*.pyc
 *~.nib
 local.properties
 .classpath
@@ -205,6 +203,8 @@ develop-eggs/
 
 # Installer logs
 pip-log.txt
+*.cache
+*.pyc
 
 # Unit test / coverage reports
 .coverage
