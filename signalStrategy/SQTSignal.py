@@ -11,11 +11,12 @@ class CSQTSignal(baseSignal.CBaseSingal):
 	#自定义初始化函数
 	def customInit(self):
 		self.name = "SQTSignal"
-		self.timeSharingDataList = []
+		self.timeSharingDataList = []	#分时时间数据
 	#行情数据触发函数
 	def onRtnMarketData(self, data):
 		self.getTimeSharingData(data)
-		print self.name, self.stockCode, data["stockCode"], data["dateTime"], data["close"]
+		if self.MDList:
+			print self.name, self.stockCode, data["close"], self.MDList[-1]["dateTime"], self.MDList[-1]["close"]
 		pass
 	#逐笔成交触发函数
 	def onRtnTradeSettlement(self, data):

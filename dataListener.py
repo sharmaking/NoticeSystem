@@ -3,10 +3,11 @@
 #dataListener.py
 import threading
 
-class CDataListerner(threading.Thread):
-	def __init__(self, buffStack):
-		super(CDataListerner, self).__init__()
-		self.buffStack = buffStack
+class CDataListener(threading.Thread):
+	def __init__(self, name, bufferStack):
+		super(CDataListener, self).__init__()
+		self.name = "Thread-%s-Listener" %name
+		self.bufferStack = bufferStack
 		#策略对象
 		self.type = True     		#监听类型： True 单股票策略监听，False 多股票策略监听
 		self.signalObjDict = {}		#但股票策略对象列表
@@ -29,11 +30,9 @@ class CDataListerner(threading.Thread):
 	#----------------------------
 	def run(self):
 		while 1:
-			if self.buffStack:
-				dataType, data = self.buffStack.pop(-1)
+			while self.bufferStack:
+				dataType, data = self.bufferStack.pop()
 				self.dataListening(dataType, data)
-			pass
-		pass
 
 	def dataListening(self, dataType, data):
 		if self.type:

@@ -217,12 +217,17 @@ def handleBufferData(bufferData):
 def recvSubscibeRespond(socketLink, num):
 	bufferData = ""
 	while 1:
-		recvData = socketLink.recv(BUFSIZ)
-		#如果缓冲没有数据
-		if not bufferData:
-			bufferData = recvData
-		else: #继续缓冲数据
-			bufferData = bufferData + recvData
-		#接收数据完整，处理缓冲数据
-		if checkBufferDataIsComplete(bufferData):
-			bufferData = handleBufferData(bufferData)
+		try:
+			recvData = socketLink.recv(BUFSIZ)
+			#如果缓冲没有数据
+			if not bufferData:
+				bufferData = recvData
+			else: #继续缓冲数据
+				bufferData = bufferData + recvData
+			#接收数据完整，处理缓冲数据
+			if checkBufferDataIsComplete(bufferData):
+				bufferData = handleBufferData(bufferData)
+		except Exception:	#断线重连
+			print "socket.error: [Error 10054]"
+			pass
+		

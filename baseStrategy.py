@@ -32,8 +32,8 @@ class CBaseStrategy(object):
 	def getRequesHandlerObjList(self, requesHandlerObjList):
 		self.requesHandlerObjList = requesHandlerObjList
 	
-	def dataListener(self, dataType, data):
-		data = copy.copy(data)
+	def dataListener(self, dataType, sourceData):
+		data = copy.copy(sourceData)
 		if dataType == 1:			#逐笔成交数据
 			self.onRtnTradeSettlement(data)
 			self.saveTradeSettlement(data)

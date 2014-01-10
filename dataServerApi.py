@@ -3,7 +3,6 @@
 #dataServerApi.py
 from DataApi_32 import CDataApi
 import datetime
-import copy
 
 class CDataServerApi(CDataApi):
 	#初始化接口
