@@ -32,8 +32,7 @@ class CBaseStrategy(object):
 	def getRequesHandlerObjList(self, requesHandlerObjList):
 		self.requesHandlerObjList = requesHandlerObjList
 	
-	def dataListener(self, dataType, sourceData):
-		data = copy.copy(sourceData)
+	def dataListener(self, dataType, data):
 		if dataType == 1:			#逐笔成交数据
 			self.onRtnTradeSettlement(data)
 			self.saveTradeSettlement(data)
@@ -46,7 +45,7 @@ class CBaseStrategy(object):
 				self.currentMDDateTime = copy.copy(data["dateTime"])
 				self.saveMarketData(data)
 		#自动保存缓存触发
-		if (datetime.datetime.now() - self.preSaveCacheTime)> datetime.timedelta(minutes = 5):
+		if (datetime.datetime.now() - self.preSaveCacheTime)> datetime.timedelta(minutes = 1):
 			self.autosaveCache()
 			#self.saveCache(MDList = self.MDList, TDList = self.TDList, ODList = self.ODList)
 	#------------------------------

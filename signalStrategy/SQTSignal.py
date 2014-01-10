@@ -16,8 +16,7 @@ class CSQTSignal(baseSignal.CBaseSingal):
 	def onRtnMarketData(self, data):
 		self.getTimeSharingData(data)
 		if self.MDList:
-			print self.name, self.stockCode, data["close"], self.MDList[-1]["dateTime"], self.MDList[-1]["close"]
-		pass
+			print self.name, self.stockCode, data["stockCode"], data["close"], self.MDList[-1]["stockCode"]
 	#逐笔成交触发函数
 	def onRtnTradeSettlement(self, data):
 		pass
@@ -28,8 +27,7 @@ class CSQTSignal(baseSignal.CBaseSingal):
 	def autosaveCache(self):
 		#self.saveCache(data = self.data)
 		self.saveCache(
-			timeSharingDataList = self.timeSharingDataList
-			)
+			stockCodengDataList = self.timeSharingDataList)
 	#------------------------------
 	#策略实现函数
 	#------------------------------
