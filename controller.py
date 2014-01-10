@@ -21,17 +21,6 @@ g_strategyDict = {}		#key: 策略名，value：策略对象
 #订阅股票列表
 g_subStocks = []
 #-----------------------
-#注册策略
-#-----------------------
-#单只股票策略对象池
-g_SSDict = {}
-g_SSDict["baseSingal"] = signalStrategy.CBaseSingal()
-g_SSDict["SQTSignal"] = signalStrategy.CSQTSignal()
-#多只股票策略对象池
-g_MSDict = {}
-g_MSDict["baseMultiple"] = multipleStrategy.CBaseMultiple()
-g_MSDict["SQTMultiple"] = multipleStrategy.CSQTMultiple()
-#-----------------------
 #实现函数
 #-----------------------
 #读取设置参数
@@ -59,14 +48,16 @@ def creatStrategyObject(needSignal, stock):
 		if not SUB_SIGNALS:		#如果没有订阅
 			return False
 		for signalName in SUB_SIGNALS:
-			strategyObjDict[signalName] = copy.copy(g_SSDict[signalName])
+			singalObjStr = "signalStrategy.C%s%s()" %(signalName[0].upper(),signalName[1:])
+			strategyObjDict[signalName] = eval(singalObjStr)
 			strategyObjDict[signalName].init(stock)
 		return strategyObjDict
 	else:			#多信号策略
 		if not SUB_MULTIPLES:	#如果没有订阅
 			return False
 		for multipeName in SUB_MULTIPLES:
-			strategyObjDict[multipeName] = copy.copy(g_MSDict[multipeName])
+			multipeObjStr = "multipleStrategy.C%s%s()" %(multipeName[0].upper(),multipeName[1:])
+			strategyObjDict[multipeName] = eval(multipeObjStr)
 			strategyObjDict[multipeName].init("Multiple")
 		return strategyObjDict
 #创建监听对象
@@ -78,7 +69,7 @@ def creatListener(bufferStack):
 			strategyObjDict = creatStrategyObject(True, stock)
 			if strategyObjDict:
 				bufferStack[stock]    = []
-				newListener           = dataListener.CDataListener(stock, bufferStack[stock])
+				newListener           = dataListener.CDataListener(stock, bufferStack)
 				newListener.getSignalStrategyObj(strategyObjDict)
 				newListener.start()
 				g_listenerDict[stock] = newListener
@@ -86,7 +77,7 @@ def creatListener(bufferStack):
 	strategyObjDict = creatStrategyObject(False,"Multiple")
 	if strategyObjDict:
 		bufferStack["Multiple"]		= []
-		newListener					= dataListener.CDataListener("Multiple", bufferStack["Multiple"])
+		newListener					= dataListener.CDataListener("Multiple", bufferStack)
 		newListener.getmultipleStrategyObj(strategyObjDict, g_listenerDict)
 		newListener.start()
 		g_listenerDict["Multiple"]	= newListener
