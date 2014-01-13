@@ -7,7 +7,7 @@ import copy
 import decompress
 import dataStruct
 import time
-#socketLink 代表是socket连接类
+#g_socketLink, socketLink 代表是socket连接类
 #--------------------------------
 #定义共用成员变量
 #--------------------------------
@@ -188,7 +188,7 @@ def resolveRecvData(bufferData):
 		pass
 	#结束标记
 	elif dataType == 998:
-		pass
+		g_socketLink.onRtnDataEnd()
 #--------------------------------
 #接收解析socket数据，缓存拼接成完整数据
 #--------------------------------

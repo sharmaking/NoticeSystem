@@ -38,3 +38,6 @@ class CDataApi(socket.socket):
 	#数据接收接口
 	def onRtnDepthMarketData(self, dataType, data):
 		pass
+	#数据传输结束
+	def onRtnDataEnd(self):
+		print "DataEnd"
