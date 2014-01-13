@@ -21,5 +21,3 @@ class CDataServerApi(CDataApi):
 		if data["stockCode"][:6] == self.mainIF:
 			if self.bufferStack.has_key("IF0000"):
 				self.bufferStack["IF0000"].append((dataType,data))
-
-

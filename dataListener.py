@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 #dataListener.py
 import threading
-import copy
 
 class CDataListener(threading.Thread):
 	def __init__(self, name, bufferStack):
@@ -33,7 +32,7 @@ class CDataListener(threading.Thread):
 	def run(self):
 		while 1:
 			while self.bufferStack[self.stockCode]:
-				dataType, data = copy.copy(self.bufferStack[self.stockCode][0])
+				dataType, data = self.bufferStack[self.stockCode][0]
 				del self.bufferStack[self.stockCode][0]
 				self.dataListening(dataType, data)
 
