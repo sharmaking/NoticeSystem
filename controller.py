@@ -82,10 +82,8 @@ def creatListener(bufferStack):
 		newListener.start()
 		g_listenerDict["Multiple"]	= newListener
 #计算主力合约
-def calculateMainIF():
-	nowTime = datetime.datetime.now()
+def calculateMainIF(nowTime):
 	mainIF = "IF"
-	nowTime = datetime.datetime.now()
 	firstDayInThisMonth = nowTime.replace(day = 1)
 	if nowTime.isocalendar()[1] - firstDayInThisMonth.isocalendar()[1] < 2 and nowTime.isocalendar()[2] < 5:
 		mainIF = mainIF + nowTime.strftime("%y%m")
@@ -93,17 +91,17 @@ def calculateMainIF():
 		mainIF = mainIF + nowTime.replace(month = (nowTime.month+1)).strftime("%y%m")
 	return mainIF
 #更新订阅合约
-def updateSubStock(socketLink, num):
+def updateSubStock(socketLink, nowTime):
 	global g_subStocks
 	if "IF0000" in g_subStocks:
-		mainIF = calculateMainIF()
+		mainIF = calculateMainIF(nowTime)
 		g_subStocks.append(mainIF)
 		socketLink.getMainIF(mainIF)
 	while 1:
 		nowTime = datetime.datetime.now()
 		if nowTime.time() > datetime.time(9,14,0) and nowTime.time() < datetime.time(9,15,0):
 			if "IF0000" in g_subStocks:
-				mainIF = calculateMainIF()
+				mainIF = calculateMainIF(nowTime)
 				g_subStocks.append(mainIF)
 				socketLink.getMainIF(mainIF)
 			time.sleep(60)
@@ -115,7 +113,11 @@ def main():
 	#创建数据连接对象
 	dataServerInstance = creatDataServerLink()
 	#注意监听更新订阅股票代码
-	thread.start_new_thread(updateSubStock, (dataServerInstance,1))
+	if REQUEST_TYPE:
+		nowTime = datetime.datetime.strptime(START_TIME,"%Y-%m-%d %H:%M:%S")
+	else:
+		nowTime = datetime.datetime.now()
+	thread.start_new_thread(updateSubStock, (dataServerInstance, nowTime))
 	#创建数据监听器
 	creatListener(dataServerInstance.bufferStack)
 	#订阅股票代码
