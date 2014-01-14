@@ -5,7 +5,7 @@ import baseSignal
 import copy
 import datetime
 
-class CSQTSignal(baseSignal.CBaseSingal):
+class CSQTSignal(baseSignal.CBaseSignal):
 	#------------------------------
 	#继承重载函数
 	#------------------------------
@@ -19,6 +19,7 @@ class CSQTSignal(baseSignal.CBaseSingal):
 	def onRtnMarketData(self, data):
 		if data["dateTime"].time() > datetime.time(9,30,0):
 			self.getTimeSharingData(data)
+			print data["dateTime"], self.stockCode, data["stockName"], data["close"]
 	#逐笔成交触发函数
 	def onRtnTradeSettlement(self, data):
 		pass

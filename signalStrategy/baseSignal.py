@@ -5,7 +5,7 @@ import sys
 sys.path.append("..")
 import baseStrategy
 
-class CBaseSingal(baseStrategy.CBaseStrategy):
+class CBaseSignal(baseStrategy.CBaseStrategy):
 	#------------------------------
 	#继承重载函数
 	#------------------------------

@@ -3,7 +3,7 @@
 import controller
 
 def main():
-	controller.main()
+	mainController = controller.CController()
 
 if __name__ == '__main__':
 	main()
