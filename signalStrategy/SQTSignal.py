@@ -19,7 +19,7 @@ class CSQTSignal(baseSignal.CBaseSignal):
 	def onRtnMarketData(self, data):
 		if data["dateTime"].time() > datetime.time(9,30,0):
 			self.getTimeSharingData(data)
-			print data["dateTime"], self.stockCode, data["stockName"], data["close"]
+			#print data["dateTime"], self.stockCode, data["stockName"], data["close"]
 	#逐笔成交触发函数
 	def onRtnTradeSettlement(self, data):
 		pass

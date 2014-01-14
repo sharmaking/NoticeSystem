@@ -79,13 +79,16 @@ class CController(object):
 					newListener.start()
 					self.listenerDict[stock] = newListener
 		#多股票策略监听
-		strategyObjDict = self.creatStrategyObject(False,"Multiple")
-		if strategyObjDict:
-			self.bufferStack["Multiple"]		= []
-			newListener					= dataListener.CDataListener("Multiple", self.bufferStack)
-			newListener.getmultipleStrategyObj(strategyObjDict, self.listenerDict)
-			newListener.start()
-			self.listenerDict["Multiple"]	= newListener
+		if not self.listenerDict.has_key("Multiple"):
+			strategyObjDict = self.creatStrategyObject(False,"Multiple")
+			if strategyObjDict:
+				self.bufferStack["Multiple"]		= []
+				newListener					= dataListener.CDataListener("Multiple", self.bufferStack)
+				newListener.getmultipleStrategyObj(strategyObjDict, self.listenerDict)
+				newListener.start()
+				self.listenerDict["Multiple"]	= newListener
+		#订阅股票代码
+		self.dataServerInstance.subscibeStock(self.SUB_ALL_STOCK, self.subStocks)
 	#-----------------------
 	#主入口
 	#-----------------------
@@ -94,10 +97,8 @@ class CController(object):
 		self.loadSubStocks()
 		#创建数据连接对象
 		self.creatDataServerLink()
-		#创建数据监听器
+		#创建数据监听器 and 订阅股票代码
 		self.creatListener()
-		#订阅股票代码
-		self.dataServerInstance.subscibeStock(self.SUB_ALL_STOCK, self.subStocks)
 		#请求数据
 		self.dataServerInstance.requestData(
 			self.REQUEST_TYPE,

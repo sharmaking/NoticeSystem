@@ -35,7 +35,6 @@ class CDataListener(threading.Thread):
 				dataType, data = self.bufferStack[self.stockCode][0]
 				del self.bufferStack[self.stockCode][0]
 				self.dataListening(dataType, data)
-
 	def dataListening(self, dataType, data):
 		if self.type:
 			for signalName, signalObj in self.signalObjDict.items():
