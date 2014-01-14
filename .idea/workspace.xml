@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4dacca85-80ee-4112-8323-bee2a3f015e6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/signalStrategy/SQTSignal.py" afterPath="$PROJECT_DIR$/signalStrategy/SQTSignal.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.ini" afterPath="$PROJECT_DIR$/config.ini" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/baseStrategy.py" afterPath="$PROJECT_DIR$/baseStrategy.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller.py" afterPath="$PROJECT_DIR$/controller.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dataListener.py" afterPath="$PROJECT_DIR$/dataListener.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dataServerApi.py" afterPath="$PROJECT_DIR$/dataServerApi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DataApi_32/socketFun.py" afterPath="$PROJECT_DIR$/DataApi_32/socketFun.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/subStock.csv" afterPath="$PROJECT_DIR$/subStock.csv" />
     </list>
     <ignored path="NoticeSystem.iws" />
@@ -21,7 +17,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/NoticeSystem$mian.coverage" NAME="mian Coverage Results" MODIFIED="1389677020351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NoticeSystem$mian.coverage" NAME="mian Coverage Results" MODIFIED="1389691801336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -44,19 +40,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SQTSignal.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SQTSignal.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/signalStrategy/SQTSignal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="0" selection-start="437" selection-end="437" vertical-scroll-proportion="0.0" vertical-offset="207" max-vertical-offset="1862">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controller.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/controller.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="50" selection-start="1810" selection-end="1810" vertical-scroll-proportion="0.82471263" vertical-offset="910" max-vertical-offset="2071">
+            <state line="137" column="39" selection-start="4335" selection-end="4335" vertical-scroll-proportion="0.73913044" vertical-offset="2242" max-vertical-offset="2679">
               <folding />
             </state>
           </provider>
@@ -82,14 +69,15 @@
       <list>
         <option value="$PROJECT_DIR$/dataServerApi.py" />
         <option value="$PROJECT_DIR$/controller.py" />
+        <option value="$PROJECT_DIR$/signalStrategy/SQTSignal.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
+    <option name="x" value="-1448" />
     <option name="y" value="-8" />
     <option name="width" value="1456" />
-    <option name="height" value="886" />
+    <option name="height" value="916" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -351,16 +339,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="886" extended-state="7" />
-    <editor active="true" />
+    <frame x="-1448" y="-8" width="1456" height="916" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.49867022" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5013298" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5933504" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40664962" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -386,30 +374,21 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/dataServerApi.py</url>
-          <line>35</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/dataServerApi.py</url>
-          <line>20</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/controller.py</url>
-          <line>88</line>
-          <option name="timeStamp" value="15" />
+          <url>file://$PROJECT_DIR$/signalStrategy/SQTSignal.py</url>
+          <line>137</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="16" />
+      <option name="time" value="21" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/signalStrategy/SQTSignal.py">
+    <entry file="file://$PROJECT_DIR$/controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="437" selection-end="437" vertical-scroll-proportion="0.0" vertical-offset="207" max-vertical-offset="1862">
+        <state line="56" column="28" selection-start="1297" selection-end="1297" vertical-scroll-proportion="0.16954023" vertical-offset="948" max-vertical-offset="2109">
           <folding />
         </state>
       </provider>
@@ -421,9 +400,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controller.py">
+    <entry file="file://$PROJECT_DIR$/signalStrategy/SQTSignal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="50" selection-start="1810" selection-end="1810" vertical-scroll-proportion="0.82471263" vertical-offset="910" max-vertical-offset="2071">
+        <state line="137" column="39" selection-start="4335" selection-end="4335" vertical-scroll-proportion="0.73913044" vertical-offset="2242" max-vertical-offset="2679">
           <folding />
         </state>
       </provider>

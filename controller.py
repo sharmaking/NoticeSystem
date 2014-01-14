@@ -26,6 +26,8 @@ class CController(object):
 		self.subStocks = []
 		#数据缓存堆栈
 		self.bufferStack = {}		#key: stockCode, value: list
+		#信号槽
+		self.messageBox = []
 		#读取设置参数
 		execfile("config.ini")
 		#-----------------------
@@ -56,7 +58,7 @@ class CController(object):
 			for signalName in self.SUB_SIGNALS:
 				singalObjStr = "signalStrategy.C%s%s()" %(signalName[0].upper(),signalName[1:])
 				strategyObjDict[signalName] = eval(singalObjStr)
-				strategyObjDict[signalName].init(stock)
+				strategyObjDict[signalName].init(stock, self)
 			return strategyObjDict
 		else:			#多信号策略
 			if not self.SUB_MULTIPLES:	#如果没有订阅
@@ -64,7 +66,7 @@ class CController(object):
 			for multipeName in self.SUB_MULTIPLES:
 				multipeObjStr = "multipleStrategy.C%s%s()" %(multipeName[0].upper(),multipeName[1:])
 				strategyObjDict[multipeName] = eval(multipeObjStr)
-				strategyObjDict[multipeName].init("Multiple")
+				strategyObjDict[multipeName].init("Multiple", self)
 			return strategyObjDict
 	#创建监听对象
 	def creatListener(self):
@@ -73,17 +75,17 @@ class CController(object):
 			if not self.listenerDict.has_key(stock):
 				strategyObjDict = self.creatStrategyObject(True, stock)
 				if strategyObjDict:
-					self.bufferStack[stock]    = []
-					newListener           = dataListener.CDataListener(stock, self.bufferStack)
+					self.bufferStack[stock]		= []
+					newListener           		= dataListener.CDataListener(stock, self.bufferStack)
 					newListener.getSignalStrategyObj(strategyObjDict)
 					newListener.start()
-					self.listenerDict[stock] = newListener
+					self.listenerDict[stock]	= newListener
 		#多股票策略监听
 		if not self.listenerDict.has_key("Multiple"):
 			strategyObjDict = self.creatStrategyObject(False,"Multiple")
 			if strategyObjDict:
-				self.bufferStack["Multiple"]		= []
-				newListener					= dataListener.CDataListener("Multiple", self.bufferStack)
+				self.bufferStack["Multiple"]	= []
+				newListener						= dataListener.CDataListener("Multiple", self.bufferStack)
 				newListener.getmultipleStrategyObj(strategyObjDict, self.listenerDict)
 				newListener.start()
 				self.listenerDict["Multiple"]	= newListener

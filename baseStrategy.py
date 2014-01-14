@@ -23,11 +23,10 @@ class CBaseStrategy(object):
 	#listener 调用接口
 	#------------------------------
 	#自定义对象初始化
-	def init(self, stockCode):
-		self.stockCode = stockCode
+	def init(self, stockCode, controller):
+		self.stockCode = stockCode		#
+		self.controller = controller	#控制器对象
 		self.initCashe()
-		pass
-
 	#获得连接对象
 	def getRequesHandlerObjList(self, requesHandlerObjList):
 		self.requesHandlerObjList = requesHandlerObjList
