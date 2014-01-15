@@ -73,8 +73,10 @@ class QMainWindow(QtGui.QMainWindow):
 	def clearMessage(self):
 		if self.preShowedMessageType["type"]:
 			if datetime.datetime.now() - self.preShowedMessageType["datetime"] > datetime.timedelta(minutes = 1):
-				self.Index_list.clear()
-				self.IF_list.clear()
+				for x in xrange(len(self.Index_list)+1):
+					self.Index_list.takeItem(x)
+				for x in xrange(len(self.IF_list)+1):
+					self.IF_list.takeItem(x)
 				self.preShowedMessageType["type"] = ""
 				print "clearMessage", datetime.datetime.now()
 
