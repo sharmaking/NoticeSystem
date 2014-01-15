@@ -17,7 +17,6 @@ class CSQTSignal(baseSignal.CBaseSignal):
 		self.sectionLength = 60			#一小时分钟
 		self.breakHighPointList = []	
 		self.breakLowPointList	= []
-		self.messageBox = []
 	#行情数据触发函数
 	def onRtnMarketData(self, data):
 		if data["dateTime"].time() > datetime.time(9,30,0):
@@ -131,8 +130,9 @@ class CSQTSignal(baseSignal.CBaseSignal):
 			message["type"] = "BreakHigh"
 		else:
 			message["type"] = "BreakLow"
-		message["stockCode"]		= data["stockCode"]
+		message["strategyName"]		= self.name
+		message["stockCode"]		= self.stockCode
 		message["beBreakedPoint"]	= point
 		message["breakTime"]		= data["dateTime"]
 		message["breakPrice"]		= data["close"]
-		self.messageBox.append(message)
+		self.controller.messageBox.append(message)

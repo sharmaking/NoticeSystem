@@ -35,8 +35,10 @@ def subscibeStock(socketLink, isAllMarket, stocks):
 	try:
 		socketLink.send(bytes)
 		print "SubscibeStock Successful"
+		socketLink.connectState = True
 	except Exception:
 		print "SubscibeStock Failure: send error"
+		socketLink.connectState = False
 	global g_socketLink
 	g_socketLink = socketLink
 #向服务端发送订阅请求时间段
@@ -231,7 +233,8 @@ def recvSubscibeRespond(socketLink, num):
 			#接收数据完整，处理缓冲数据
 			if checkBufferDataIsComplete(bufferData):
 				bufferData = handleBufferData(bufferData)
+			g_socketLink.connectState = True
 		except Exception:	#断线重连
 			print "socket.error: [Error 10054]"
-			pass
+			g_socketLink.connectState = False
 		
