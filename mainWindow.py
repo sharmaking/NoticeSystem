@@ -39,7 +39,8 @@ class QMainWindow(QtGui.QMainWindow):
 			messageKind = u"低"
 		messageBrush = QtGui.QBrush(messageQColor)
 		messageItem.setForeground(messageBrush)
-		
+		messageItem.setWhatsThis(u"突破%s点: %s %s"%(messageKind, message["beBreakedPoint"][0].strftime("%y-%m-%d %H:%M:%S"), message["beBreakedPoint"][1]))
+
 		messageItemII = QtGui.QListWidgetItem(u"突破%s点: %s %s"%(messageKind, message["beBreakedPoint"][0].strftime("%y-%m-%d %H:%M:%S"), message["beBreakedPoint"][1]))
 		messageItemII.setForeground(messageBrush)
 		
@@ -73,10 +74,17 @@ class QMainWindow(QtGui.QMainWindow):
 	def clearMessage(self):
 		if self.preShowedMessageType["type"]:
 			if datetime.datetime.now() - self.preShowedMessageType["datetime"] > datetime.timedelta(minutes = 1):
-				for x in xrange(len(self.Index_list)+1):
+				for x in xrange(len(self.Index_list)):
 					self.Index_list.takeItem(x)
-				for x in xrange(len(self.IF_list)+1):
+				for x in xrange(len(self.IF_list)):
 					self.IF_list.takeItem(x)
+				#---
+				for x in xrange(len(self.Index_list)):
+					self.Index_list.takeItem(x)
+				for x in xrange(len(self.IF_list)):
+					self.IF_list.takeItem(x)
+				#self.Index_list.clear()
+				#self.IF_list.clear()
 				self.preShowedMessageType["type"] = ""
 				print "clearMessage", datetime.datetime.now()
 
@@ -84,6 +92,13 @@ class QMainWindow(QtGui.QMainWindow):
 		if mainIF != self.mainIF:
 			self.mainIF = mainIF
 			self.MainIF_label.setText(mainIF)
+
+	def closeEvent(self, event):
+		r = QtGui.QMessageBox.question(self, u'退出', u'确定？', QtGui.QMessageBox.Yes, QtGui.QMessageBox.No) 
+		if r == QtGui.QMessageBox.Yes:
+			event.accept()      # 退出 
+		else: 
+			event.ignore()      # 不退出
 
 #信号监听器
 class QListener(QtCore.QThread):
@@ -110,9 +125,6 @@ class QListener(QtCore.QThread):
 		if self.controller.dataServerInstance.connectState != self.connectState:
 			self.Qmain.showSocketLinkState(self.controller.dataServerInstance.connectState)
 			self.connectState = self.controller.dataServerInstance.connectState
-
-	def function():
-		pass
 
 
 def main(controller):

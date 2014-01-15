@@ -77,6 +77,7 @@ class CController(object):
 				if strategyObjDict:
 					self.bufferStack[stock]		= []
 					newListener           		= dataListener.CDataListener(stock, self.bufferStack)
+					newListener.setDaemon(True)
 					newListener.getSignalStrategyObj(strategyObjDict)
 					newListener.start()
 					self.listenerDict[stock]	= newListener
@@ -86,6 +87,7 @@ class CController(object):
 			if strategyObjDict:
 				self.bufferStack["Multiple"]	= []
 				newListener						= dataListener.CDataListener("Multiple", self.bufferStack)
+				newListener.setDaemon(True)
 				newListener.getmultipleStrategyObj(strategyObjDict, self.listenerDict)
 				newListener.start()
 				self.listenerDict["Multiple"]	= newListener
