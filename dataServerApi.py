@@ -40,7 +40,7 @@ class CDataServerApi(CDataApi):
 		if "IF0000" in self.controller.subStocks:
 			mainIF = "IF"
 			firstDayInThisMonth = nowTime.replace(day = 1)
-			if nowTime.isocalendar()[1] - firstDayInThisMonth.isocalendar()[1] < 2 and nowTime.isocalendar()[2] < 5:
+			if nowTime.isocalendar()[1] - firstDayInThisMonth.isocalendar()[1] < 3 and nowTime.isocalendar()[2] < 5:
 				mainIF = mainIF + nowTime.strftime("%y%m")
 			else:
 				mainIF = mainIF + nowTime.replace(month = (nowTime.month+1)).strftime("%y%m")

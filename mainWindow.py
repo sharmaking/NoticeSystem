@@ -66,25 +66,19 @@ class QMainWindow(QtGui.QMainWindow):
 			self.preShowedMessageType["type"] = messageType
 			#保存信号
 			messageFile = open("messageFile.csv", "a")
-			content = "%s %s %s; breakPoint: %s %s \n"%(message["stockCode"], message["breakTime"].strftime("%y-%m-%d %H:%M:%S"), message["breakPrice"], message["beBreakedPoint"][0].strftime("%y-%m-%d %H:%M:%S"), message["beBreakedPoint"][1])
+			content = "%s %s %s %s; breakPoint: %s %s \n"%(message["type"], message["stockCode"], message["breakTime"].strftime("%y-%m-%d %H:%M:%S"), message["breakPrice"], message["beBreakedPoint"][0].strftime("%y-%m-%d %H:%M:%S"), message["beBreakedPoint"][1])
 			print "saveShowedMessageType", self.preShowedMessageType["datetime"]
 			messageFile.write(content)
 			messageFile.close()
 
 	def clearMessage(self):
 		if self.preShowedMessageType["type"]:
-			if datetime.datetime.now() - self.preShowedMessageType["datetime"] > datetime.timedelta(minutes = 1):
-				for x in xrange(len(self.Index_list)):
-					self.Index_list.takeItem(x)
-				for x in xrange(len(self.IF_list)):
-					self.IF_list.takeItem(x)
-				#---
-				for x in xrange(len(self.Index_list)):
-					self.Index_list.takeItem(x)
-				for x in xrange(len(self.IF_list)):
-					self.IF_list.takeItem(x)
-				#self.Index_list.clear()
-				#self.IF_list.clear()
+			if datetime.datetime.now() - self.preShowedMessageType["datetime"] > datetime.timedelta(seconds = 40):
+				while self.Index_list.count():
+					self.Index_list.takeItem(0)
+				while self.IF_list.count():
+					print "IF_list"
+					self.IF_list.takeItem(0)
 				self.preShowedMessageType["type"] = ""
 				print "clearMessage", datetime.datetime.now()
 
@@ -96,9 +90,20 @@ class QMainWindow(QtGui.QMainWindow):
 	def closeEvent(self, event):
 		r = QtGui.QMessageBox.question(self, u'退出', u'确定？', QtGui.QMessageBox.Yes, QtGui.QMessageBox.No) 
 		if r == QtGui.QMessageBox.Yes:
+			self.savecache()
 			event.accept()      # 退出 
 		else: 
 			event.ignore()      # 不退出
+
+	def getController(self, controller):
+		self.controller = controller
+
+	def savecache(self):
+		for stockCode, listener in self.controller.listenerDict.items():
+			for signalName, signalObj in listener.signalObjDict.items():
+				signalObj.autosaveCache()
+			for multipleName, multipleObj in listener.multipleObjDict.items():
+				multipleObj.autosaveCache()
 
 #信号监听器
 class QListener(QtCore.QThread):
@@ -106,6 +111,7 @@ class QListener(QtCore.QThread):
 		QtCore.QThread.__init__(self)
 		self.controller = controller
 		self.Qmain = Qmain
+		self.Qmain.getController(controller)
 		self.connectState = False
 
 	def __del__(self):

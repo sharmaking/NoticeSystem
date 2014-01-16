@@ -14,7 +14,7 @@ class CSQTSignal(baseSignal.CBaseSignal):
 		self.name = "SQTSignal"
 		self.timeSharingDataList = []	#分时时间数据
 		self.highLowPointList = []		#高低点列表
-		self.sectionLength = 60			#一小时分钟
+		self.sectionLength = 40			#40分钟
 		self.breakHighPointList = []	
 		self.breakLowPointList	= []
 	#行情数据触发函数
